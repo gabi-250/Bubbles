@@ -1,5 +1,6 @@
 package com.example.gabi.bubbles;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
@@ -17,11 +18,11 @@ public class MainActivity extends AppCompatActivity {
     private Filler filler;
     private Model model;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         model = new Model();
         filler = new Filler();
         filler.setModel(model);
