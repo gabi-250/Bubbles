@@ -8,20 +8,32 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by gabi on 05/05/16.
+/** *
+ * Represents the model of the 'Bubbles' game. It contains a matrix of integers representing
+ * the color of each tile and it permits the removal of tiles: the selected tiles (adjacent tiles
+ * of the same color) are replaced by the tiles on top and the space at the 'top' of the matrix
+ * is filled with random colors.
+ *
  */
 public class Model {
 
     private int[][] board;
-    private static Random random;
     private int score;
+    private static Random random;
 
+    /**
+     * Creates a default model, for a board that has 6 rows and 4 columns.
+     */
     public Model() {
 
         this(6, 4);
     }
 
+    /**
+     * Creates a model for the game board of a specified number of rows and columns
+     * @param rows the number of rows the board should have
+     * @param columns the number of columns the board should have
+     */
     public Model(int rows, int columns) {
 
         board = new int[rows][columns];
@@ -41,16 +53,30 @@ public class Model {
         }
     }
 
+    /**
+     * Returns the color of a given tile.
+     * @param row the row of the tile
+     * @param column the column of the tile
+     * @return an integer representing the color of the tile
+     */
     public int getColor(int row, int column) {
 
         return board[row][column];
     }
 
+    /**
+     * Returns the board of the game.
+     * @return an array of integers representing colors of tiles.
+     */
     public int[][] getBoard() {
 
         return board;
     }
 
+    /**
+     * Resets the color of the squares, after selected ones are removed.
+     * @param squares the list of squares selected for removal.
+     */
     public void resetColor(List <Pair< Integer, Integer> > squares) {
 
         Collections.sort(squares, new Comparator<Pair<Integer, Integer>>() {
@@ -77,6 +103,10 @@ public class Model {
         }
     }
 
+    /**
+     * Returns the current score of the game.
+     * @return the score
+     */
     public int getScore() {
 
         return score;
