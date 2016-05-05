@@ -3,7 +3,7 @@ package com.example.gabi.bubbles.BubblesModel;
 import android.graphics.Color;
 
 /**
- * Created by gabi on 05/05/16.
+ * Represents a container for the allowed colors.
  */
 public class Colors {
 
