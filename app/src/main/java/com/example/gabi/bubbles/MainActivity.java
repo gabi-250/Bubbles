@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.gabi.bubbles.BubblesModel.Filler;
 import com.example.gabi.bubbles.BubblesModel.Model;
@@ -15,17 +16,23 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Button[][] buttons;
+    private TextView textView;
     private Filler filler;
     private Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         model = new Model();
         filler = new Filler();
         filler.setModel(model);
+        textView = (TextView) findViewById(R.id.textView);
+
+        textView.setText("Score: 0");
+
         initialiseButtons();
     }
 
@@ -45,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
                 buttons[i][j].setBackgroundColor(model.getColor(i, j));
 
-                setBorder(buttons[i][j]);
-
                 final int row = i, column = j;
 
                 buttons[i][j].setOnClickListener(new View.OnClickListener() {
@@ -56,13 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
                         List<Pair<Integer, Integer>> squares = filler.getChangedSquares(model.getBoard(), row, column);
 
-                        if( squares.size() > 1 ) {
+                        if (squares.size() > 1) {
 
                             model.resetColor(squares);
-
-                            for(Pair <Integer, Integer> square: squares) {
-                                buttons[square.first][square.second].setBackgroundColor(model.getColor(square.first, square.second));
-                            }
+                            textView.setText("Score: " + model.getScore());
+                            repaintBoard();
                         }
                     }
                 });
@@ -70,8 +73,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setBorder(Button button) {
+    private void repaintBoard() {
 
+        for(int i = 0; i < 6; ++i) {
 
+            for(int j = 0; j < 4; ++j) {
+
+                buttons[i][j].setBackgroundColor(model.getColor(i, j));
+            }
+        }
     }
 }
