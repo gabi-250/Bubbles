@@ -3,6 +3,8 @@ package com.example.gabi.bubbles.BubblesModel;
 import android.graphics.Color;
 import android.util.Pair;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -13,6 +15,7 @@ public class Model {
 
     private int[][] board;
     private static Random random;
+    private int score;
 
     public Model() {
 
@@ -23,6 +26,7 @@ public class Model {
 
         board = new int[rows][columns];
         random = new Random(Colors.colors.length);
+        score = 0;
         initialiseColors();
     }
 
@@ -49,10 +53,47 @@ public class Model {
 
     public void resetColor(List <Pair< Integer, Integer> > squares) {
 
+        Collections.sort(squares, new Comparator<Pair<Integer, Integer>>() {
+
+            @Override
+            public int compare(Pair<Integer, Integer> lhs, Pair<Integer, Integer> rhs) {
+
+                if (lhs.first < rhs.first) {
+
+                    return -1;
+                } else if (lhs.first > rhs.first) {
+
+                    return 1;
+                } else {
+
+                    return lhs.second - rhs.second;
+                }
+            }
+        });
+
         for( Pair <Integer, Integer> square: squares) {
 
-            board[square.first][square.second] = getRandomColor();
+            removeSquare(square.first, square.second);
         }
+    }
+
+    public int getScore() {
+
+        return score;
+    }
+
+    private void removeSquare(int row, int column) {
+
+        ++score;
+
+        int i = row;
+
+        for(i = row; i > 0; --i) {
+
+            board[i][column] = board[i - 1][column];
+        }
+
+        board[0][column] = getRandomColor();
     }
 
     private int getRandomColor() {
