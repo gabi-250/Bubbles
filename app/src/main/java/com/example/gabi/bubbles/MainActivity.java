@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        List<Pair<Integer, Integer>> squares = filler.getChangedSquares(model.getBoard(), row, column);
+                        List<Pair<Integer, Integer>> squares = filler.getChangedSquares(row, column);
 
                         if (squares.size() > 1) {
 
