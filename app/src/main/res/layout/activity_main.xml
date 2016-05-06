@@ -15,7 +15,8 @@
         android:transitionGroup="false"
         android:focusableInTouchMode="false"
         android:nestedScrollingEnabled="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/gridLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +26,8 @@
             android:id="@+id/textView"
             android:layout_row="0"
             android:layout_column="1"
-            android:layout_columnSpan="2" />
+            android:layout_columnSpan="2"
+            android:layout_gravity="center" />
 
         <Button
             android:layout_width="wrap_content"
@@ -292,5 +294,14 @@
             android:layout_gravity="center" />
 
     </GridLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_restart"
+        android:id="@+id/buttonRestart"
+        android:layout_below="@+id/gridLayout"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
