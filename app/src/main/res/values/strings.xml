@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Bubbles</string>
-    <string name="score" />
+    <string name="score">"Score: "</string>
+    <string name="button_restart">Restart</string>
 </resources>
