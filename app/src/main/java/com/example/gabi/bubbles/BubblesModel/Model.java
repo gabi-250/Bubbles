@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-/** *
+/**
  * Represents the model of the 'Bubbles' game. It contains a matrix of integers representing
  * the color of each tile and it permits the removal of tiles: the selected tiles (adjacent tiles
  * of the same color) are replaced by the tiles on top and the space at the 'top' of the matrix
@@ -17,9 +17,10 @@ import java.util.Random;
  */
 public class Model {
 
-    private int[][] board;
-    private int score;
+    private static int[][] board;
+    private static int score;
     private static Random random;
+    private static boolean created = false;
 
     /**
      * Creates a default model, for a board that has 6 rows and 4 columns.
@@ -36,8 +37,21 @@ public class Model {
      */
     public Model(int rows, int columns) {
 
-        board = new int[rows][columns];
-        random = new Random(Colors.colors.length);
+        if (created == false) {
+
+            board = new int[rows][columns];
+            random = new Random(Colors.colors.length);
+            score = 0;
+            created = true;
+            initialiseColors();
+        }
+    }
+
+    /**
+     * Resets the game by generating new tiles for the entire board and setting the score to 0.
+     */
+    public void reset() {
+
         score = 0;
         initialiseColors();
     }
@@ -87,9 +101,11 @@ public class Model {
                 if (lhs.first < rhs.first) {
 
                     return -1;
+
                 } else if (lhs.first > rhs.first) {
 
                     return 1;
+
                 } else {
 
                     return lhs.second - rhs.second;
@@ -112,6 +128,11 @@ public class Model {
         return score;
     }
 
+    /**
+     * Removes square at position (row, column) by replacing it with all the squares above.
+     * @param row the row of the tile to be removed
+     * @param column the column of the tile to be removed
+     */
     private void removeSquare(int row, int column) {
 
         ++score;
@@ -126,6 +147,10 @@ public class Model {
         board[0][column] = getRandomColor();
     }
 
+    /**
+     * Generates a random color from the array of allowed colors.
+     * @return a random color
+     */
     private int getRandomColor() {
 
         return Colors.colors[random.nextInt(Colors.colors.length)];
