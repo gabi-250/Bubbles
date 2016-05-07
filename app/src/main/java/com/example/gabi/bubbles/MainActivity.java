@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
                 if (filler.checkGameOver()) {
 
                     textView.setTextColor(Color.RED);
-                    textView.setText("Game Over");
+                    textView.setText(getResources().getString(R.string.game_over) + " " +
+                            getResources().getString(R.string.score) + " " + model.getScore() );
                 }
             }
         };
